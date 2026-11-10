@@ -1,0 +1,340 @@
+@import '@fontsource-variable/instrument-sans';
+@import '@fontsource/instrument-serif';
+@import '@fontsource-variable/geist-mono';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        /* Raw light/dark tokens */
+        --paper-light: #F4F1EA;
+        --paper-dark: #11100E;
+        --surface-light: #FBF9F4;
+        --surface-dark: #1A1815;
+        --ink-light: #14110F;
+        --ink-dark: #F4F1EA;
+        --line-light: #DDD6C8;
+        --line-dark: #2E2A25;
+        --brand-accent-light: #D9480F;
+        --brand-accent-dark: #F59A63;
+        --scrollbar-track-light: #F4F1EA;
+        --scrollbar-track-dark: #11100E;
+        --scrollbar-thumb-light: #9A9285;
+        --scrollbar-thumb-dark: #55504A;
+
+        /* Default fallback values */
+        --color-paper: var(--paper-light);
+        --color-surface: var(--surface-light);
+        --color-ink: var(--ink-light);
+        --color-line: var(--line-light);
+        --accent-color: var(--brand-accent-light);
+        --color-scrollbar-track: var(--scrollbar-track-light);
+        --color-scrollbar-thumb: var(--scrollbar-thumb-light);
+
+        /* MANDATORY: Fallback for browsers without light-dark support */
+        @media (prefers-color-scheme: dark) {
+            --color-paper: var(--paper-dark);
+            --color-surface: var(--surface-dark);
+            --color-ink: var(--ink-dark);
+            --color-line: var(--line-dark);
+            --accent-color: var(--brand-accent-dark);
+            --color-scrollbar-track: var(--scrollbar-track-dark);
+            --color-scrollbar-thumb: var(--scrollbar-thumb-dark);
+        }
+
+        /* Use light-dark() when supported so <meta name="color-scheme"> override works automatically */
+        @supports (color: light-dark(white, black)) {
+            --color-paper: light-dark(var(--paper-light), var(--paper-dark));
+            --color-surface: light-dark(var(--surface-light), var(--surface-dark));
+            --color-ink: light-dark(var(--ink-light), var(--ink-dark));
+            --color-line: light-dark(var(--line-light), var(--line-dark));
+            --accent-color: light-dark(var(--brand-accent-light), var(--brand-accent-dark));
+            --color-scrollbar-track: light-dark(var(--scrollbar-track-light), var(--scrollbar-track-dark));
+            --color-scrollbar-thumb: light-dark(var(--scrollbar-thumb-light), var(--scrollbar-thumb-dark));
+        }
+
+        /* MANDATORY: Automatically adapt native UI to user system preferences */
+        color-scheme: light dark;
+        accent-color: var(--accent-color);
+        scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
+    }
+
+    :root:has(> head > meta[name="color-scheme"][content="dark"]) {
+        color-scheme: dark;
+        --color-paper: var(--paper-dark);
+        --color-surface: var(--surface-dark);
+        --color-ink: var(--ink-dark);
+        --color-line: var(--line-dark);
+        --accent-color: var(--brand-accent-dark);
+        --color-scrollbar-track: var(--scrollbar-track-dark);
+        --color-scrollbar-thumb: var(--scrollbar-thumb-dark);
+    }
+
+    :root:has(> head > meta[name="color-scheme"][content="light"]) {
+        color-scheme: light;
+        --color-paper: var(--paper-light);
+        --color-surface: var(--surface-light);
+        --color-ink: var(--ink-light);
+        --color-line: var(--line-light);
+        --accent-color: var(--brand-accent-light);
+        --color-scrollbar-track: var(--scrollbar-track-light);
+        --color-scrollbar-thumb: var(--scrollbar-thumb-light);
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        text-wrap: balance;
+    }
+
+    p, blockquote, li {
+        text-wrap: pretty;
+    }
+}
+
+/* Dark mode theme adaptation for editorial tokens & surfaces */
+:root:has(> head > meta[name="color-scheme"][content="dark"]) body,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-paper {
+    background-color: var(--color-paper) !important;
+    color: var(--color-ink);
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-surface,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-white {
+    background-color: var(--color-surface) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-slate-100,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-slate-50 {
+    background-color: #23201C !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-ink,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-slate-900 {
+    color: var(--color-ink) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-slate-700,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-slate-600 {
+    color: #C9C1B1 !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-slate-500,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-slate-400 {
+    color: #9A9285 !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .border-line,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .border-slate-200,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .divide-line > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--color-line) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-money-50 {
+    background-color: rgb(25 98 62 / 0.22) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-money-700,
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-money-600 {
+    color: #44A276 !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .border-money-200 {
+    border-color: rgb(68 162 118 / 0.35) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-accent-50 {
+    background-color: rgb(217 72 15 / 0.18) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .text-accent-600 {
+    color: #F59A63 !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .bg-danger-50 {
+    background-color: rgb(180 35 24 / 0.2) !important;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .product-photo-box {
+    background-color: #FFFFFF !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) body,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-paper {
+        background-color: var(--color-paper) !important;
+        color: var(--color-ink);
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-surface,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-white {
+        background-color: var(--color-surface) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-slate-100,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-slate-50 {
+        background-color: #23201C !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-ink,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-slate-900 {
+        color: var(--color-ink) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-slate-700,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-slate-600 {
+        color: #C9C1B1 !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-slate-500,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-slate-400 {
+        color: #9A9285 !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .border-line,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .border-slate-200,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .divide-line > :not([hidden]) ~ :not([hidden]) {
+        border-color: var(--color-line) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-money-50 {
+        background-color: rgb(25 98 62 / 0.22) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-money-700,
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-money-600 {
+        color: #44A276 !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .border-money-200 {
+        border-color: rgb(68 162 118 / 0.35) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-accent-50 {
+        background-color: rgb(217 72 15 / 0.18) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .text-accent-600 {
+        color: #F59A63 !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .bg-danger-50 {
+        background-color: rgb(180 35 24 / 0.2) !important;
+    }
+
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .product-photo-box {
+        background-color: #FFFFFF !important;
+    }
+}
+
+/* CSS-driven visibility for theme toggle icon states (no JS required to stay in sync) */
+.theme-toggle-sun {
+    display: none;
+}
+.theme-toggle-moon {
+    display: inline-flex;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-toggle-sun {
+    display: inline-flex;
+}
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-toggle-moon {
+    display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-toggle-sun {
+        display: inline-flex;
+    }
+    :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-toggle-moon {
+        display: none;
+    }
+}
+
+@layer utilities {
+    .font-mono-numbers {
+        font-family: inherit;
+        font-variant-numeric: tabular-nums;
+    }
+    .table-scroll-region {
+        overflow: auto;
+        max-inline-size: 100%;
+        container-type: inline-size;
+    }
+    .table-scroll-region thead {
+        position: sticky;
+        inset-block-start: 0;
+        z-index: 1;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    @keyframes subtle-float {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-6px);
+        }
+    }
+
+    .animate-subtle-float {
+        animation: subtle-float 5.5s ease-in-out infinite;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @keyframes card-scroll-reveal {
+            from {
+                opacity: 0;
+                transform: translateY(22px) scale(0.975);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .scroll-reveal-card {
+            animation: card-scroll-reveal auto ease-out backwards;
+            animation-timeline: view(block);
+            animation-range: entry 4% cover 20%;
+        }
+    }
+}
+
+/* Legacy fallback for WebKit/Blink browsers without scrollbar-color */
+@supports not (scrollbar-color: auto) {
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-scrollbar-thumb);
+    }
+    ::-webkit-scrollbar-track {
+        background: var(--color-scrollbar-track);
+    }
+}
+
+/* Touch targets >= 44px on mobile interactive elements (WCAG 2.2 / Fase 4) */
+@media (max-width: 768px) {
+    button,
+    a[role="button"],
+    input[type="button"],
+    input[type="submit"],
+    select {
+        min-height: 44px;
+    }
+}

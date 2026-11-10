@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /meu-cartao
+Disallow: /meus-pedidos
+Disallow: /carrinho
+Disallow: /recargas/
+
+Sitemap: /sitemap.xml
